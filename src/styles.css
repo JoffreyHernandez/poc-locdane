@@ -1,0 +1,98 @@
+@import 'tailwindcss';
+
+/* ───────────────────────────────────────────────────────────
+   Loc d'Ânes — design tokens (Pays Cathare : terre, olive, soleil)
+   Exposés comme utilitaires Tailwind v4 via @theme.
+   ─────────────────────────────────────────────────────────── */
+@theme {
+  /* Couleurs */
+  --color-paper: #f6efe2; /* fond chaud, papier */
+  --color-paper-2: #efe5d2; /* fond alterné */
+  --color-sand: #e6d8bf;
+  --color-clay: #b9572c; /* terracotta — accent principal */
+  --color-clay-deep: #8c3d1a;
+  --color-olive: #5f6b3a; /* vert sauge/olive */
+  --color-olive-deep: #3f4a27;
+  --color-forest: #26301f; /* encre verte profonde */
+  --color-ink: #2a271f; /* texte */
+  --color-ink-soft: #5b5345;
+  --color-stone: #9b917c;
+  --color-gold: #c79a3f; /* soleil / cathare */
+
+  /* Typographies */
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
+  --font-sans: 'Hanken Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+  /* Courbes d'easing (philosophie emil-design-eng) */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection {
+  background: var(--color-clay);
+  color: var(--color-paper);
+}
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* Boutons : feedback au press (emil) */
+.btn-press {
+  transition: transform 160ms var(--ease-out-strong), background-color 200ms ease, color 200ms ease;
+}
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* ── Révélation au scroll (utilisée par appReveal) ─────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 700ms var(--ease-out-strong),
+    transform 700ms var(--ease-out-strong);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Apparition au chargement (cascade hero) ──────────────── */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.rise {
+  opacity: 0;
+  animation: rise 900ms var(--ease-out-strong) forwards;
+}
+
+/* Accessibilité : on retire les mouvements, on garde l'opacité */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { transform: none; transition: opacity 400ms ease; }
+  .rise { animation: none; opacity: 1; }
+  .btn-press:active { transform: none; }
+}
