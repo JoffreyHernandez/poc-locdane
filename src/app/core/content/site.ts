@@ -11,7 +11,9 @@ export const SITE = {
   telephone: '07 52 06 51 09',
   telephoneE164: '+33752065109',
   email: 'contact@locdanes.fr',
-  url: 'https://www.locdanes.fr',
+  // URL publique du site déployé (GitHub Pages — projet). À remplacer par
+  // 'https://www.locdanes.fr' le jour où le site passe sur le domaine définitif.
+  url: 'https://joffreyhernandez.github.io/poc-locdane',
   saison: 'Du 1ᵉʳ avril au 30 septembre',
   geo: { lat: 42.9287, lng: 2.2631 },
   // hôtesse / gérante

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.locdanes.fr/sitemap.xml
+Sitemap: https://joffreyhernandez.github.io/poc-locdane/sitemap.xml
