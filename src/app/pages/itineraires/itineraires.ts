@@ -24,7 +24,7 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
         </header>
 
         <div class="cards-grid balades">
-          @for (t of journee.tours; track t.nom; let i = $index) {
+          @for (t of baladesPrincipales; track t.nom; let i = $index) {
             <article class="tour" [appReveal]="i * 40">
               @if (photoByTour[t.nom]; as ph) {
                 <div class="t-photo">
@@ -57,6 +57,18 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
           }
         </div>
         <p class="credit">{{ credit }}</p>
+
+        <p class="sub-h" appReveal>Découverte</p>
+        <div class="cards-grid balades decouverte-grid">
+          @for (t of decouverte; track t.nom; let i = $index) {
+            <article class="tour" [appReveal]="i * 60">
+              <div class="t-head" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+              </div>
+              <div class="t-body"><h3>{{ t.nom }}</h3><p>{{ t.texte }}</p></div>
+            </article>
+          }
+        </div>
       </div>
     </section>
 
@@ -162,7 +174,8 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
       border: 4px solid var(--color-paper-2); box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--color-ink) 80%, transparent);
       margin: 0 -22px; }
 
-    .cta-band { background: var(--color-forest); }
+    .decouverte-grid .t-head { background: linear-gradient(150deg, var(--color-clay), var(--color-clay-deep)); }
+    .cta-band { background: var(--color-clay); }
     .cta-inner { text-align: center; max-width: 640px; }
     .cta-inner h2 { color: var(--color-paper); font-size: clamp(28px, 4vw, 44px); }
     .cta-inner .lead { color: color-mix(in srgb, var(--color-paper) 80%, transparent); margin: 16px 0 28px; }
@@ -192,10 +205,17 @@ export class Itineraires {
   photoByTour: Record<string, { slug: string; lieu: string }> = {
     'Sur le plateau de Rennes-le-Château': { slug: 'rennes-le-chateau', lieu: 'Rennes-le-Château' },
     'Rennes-les-Bains et sa rivière': { slug: 'rennes-les-bains', lieu: 'Rennes-les-Bains' },
+    'Mon beau Cardou': { slug: 'cardou', lieu: 'Pech Cardou' },
+    'Le secret cathare du Bézu': { slug: 'bezu', lieu: 'Le Bézu' },
+    'Les secrets de Sougraigne': { slug: 'sougraigne', lieu: 'Sougraigne' },
   };
+  /** Tours courts « découverte », présentés à part. */
+  private decouverteNoms = ['Le petit tour (3 h)', 'Le tout petit tour (1 h 30)'];
+  baladesPrincipales = this.journee.tours.filter((t) => !this.decouverteNoms.includes(t.nom));
+  decouverte = this.journee.tours.filter((t) => this.decouverteNoms.includes(t.nom));
   /** Lieux non rattachés à une balade → galerie « Aussi sur les chemins ». */
-  autresLieux = this.lieux.filter((l) => l.slug !== 'rennes-le-chateau' && l.slug !== 'rennes-les-bains');
-  credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, CORLIN (CC BY-SA / CC BY / CC0).';
+  autresLieux = this.lieux.filter((l) => l.slug === 'bugarach' || l.slug === 'galamus' || l.slug === 'arques' || l.slug === 'coustaussa');
+  credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, CORLIN, Ournes924, Jcb-caz-11 (CC BY-SA / CC BY / CC0).';
   constructor() {
     this.seo.setPage({
       title: 'Les itinéraires — randonnées avec un âne en Pays Cathare | Loc d’Ânes',
