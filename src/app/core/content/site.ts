@@ -15,7 +15,7 @@ export const SITE = {
   // 'https://www.locdanes.fr' le jour où le site passe sur le domaine définitif.
   url: 'https://joffreyhernandez.github.io/poc-locdane',
   saison: 'Du 1ᵉʳ avril au 30 septembre',
-  geo: { lat: 42.9287, lng: 2.2631 },
+  geo: { lat: 42.9087, lng: 2.3017 }, // Ferme de Coume-Sourde (lieu-dit, Rennes-le-Château)
   // hôtesse / gérante
   hote: 'Hannah',
 } as const;
