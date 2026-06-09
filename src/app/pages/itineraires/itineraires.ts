@@ -15,12 +15,15 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
       <p class="lead">Du tour de ferme d'1 h 30 à la grande boucle de plusieurs jours — chaque parcours s'adapte à votre rythme, à votre niveau et à la saison.</p>
     </section>
 
-    <section class="section lieux-sec">
+    <!-- PARTIE 1 : à la journée (lieux + balades réunis) -->
+    <section class="section">
       <div class="container">
         <header class="cat-head">
-          <h2 appReveal>Les lieux que vous traverserez</h2>
-          <p class="lead" appReveal="60">Châteaux cathares, pics, gorges et rivières — un avant-goût des paysages au fil des chemins.</p>
+          <h2 appReveal>{{ journee.titre }}</h2>
+          <p class="lead" appReveal="60">{{ journee.intro }}</p>
         </header>
+
+        <p class="sub-h" appReveal>Les lieux que vous traverserez</p>
         <div class="lieux">
           @for (l of lieux; track l.slug; let i = $index) {
             <figure class="lieu" [appReveal]="(i % 3) * 60">
@@ -30,27 +33,54 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
           }
         </div>
         <p class="credit">{{ credit }}</p>
+
+        <p class="sub-h" appReveal>Nos balades</p>
+        <div class="cards-grid">
+          @for (t of journee.tours; track t.nom; let i = $index) {
+            <article class="tour" [appReveal]="i * 40">
+              <h3>{{ t.nom }}</h3>
+              <p>{{ t.texte }}</p>
+            </article>
+          }
+        </div>
       </div>
     </section>
 
-    @for (cat of itineraires; track cat.cle; let odd = $odd) {
-      <section class="section" [class.alt]="odd">
-        <div class="container">
-          <header class="cat-head">
-            <h2 appReveal>{{ cat.titre }}</h2>
-            <p class="lead" appReveal="60">{{ cat.intro }}</p>
-          </header>
-          <div class="cards-grid">
-            @for (t of cat.tours; track t.nom; let i = $index) {
-              <article class="tour" [appReveal]="i * 50">
-                <h3>{{ t.nom }}</h3>
-                <p>{{ t.texte }}</p>
-              </article>
-            }
-          </div>
+    <!-- PARTIE 2 : partir plusieurs jours — mode versus -->
+    <section class="section alt">
+      <div class="container">
+        <header class="cat-head">
+          <h2 appReveal>Partir plusieurs jours</h2>
+          <p class="lead" appReveal="60">Deux façons de prolonger l'aventure — à vous de choisir votre camp.</p>
+        </header>
+
+        <div class="versus" appReveal="80">
+          <article class="vs-side left">
+            <span class="vs-tag">2 jours</span>
+            <h3>{{ deuxJours.titre }}</h3>
+            <p class="vs-intro">{{ deuxJours.intro }}</p>
+            <ul class="vs-list">
+              @for (t of deuxJours.tours; track t.nom) {
+                <li><b>{{ t.nom }}</b><span>{{ t.texte }}</span></li>
+              }
+            </ul>
+          </article>
+
+          <div class="vs-or"><span>OU</span></div>
+
+          <article class="vs-side right">
+            <span class="vs-tag">plusieurs jours</span>
+            <h3>{{ longsSejours.titre }}</h3>
+            <p class="vs-intro">{{ longsSejours.intro }}</p>
+            <ul class="vs-list">
+              @for (t of longsSejours.tours; track t.nom) {
+                <li><b>{{ t.nom }}</b><span>{{ t.texte }}</span></li>
+              }
+            </ul>
+          </article>
         </div>
-      </section>
-    }
+      </div>
+    </section>
 
     <section class="section cta-band">
       <div class="container cta-inner" appReveal>
@@ -64,17 +94,11 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
     .cat-head { max-width: 760px; margin: 0 auto clamp(28px, 4vw, 48px); text-align: center; }
     .cat-head h2 { font-size: clamp(28px, 4vw, 44px); }
     .cat-head .lead { margin-top: 12px; font-size: 18px; }
-    /* grilles centrées : les items de dernière ligne ne s'étirent plus */
-    .cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 360px)); justify-content: center; }
-    .tour { background: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
-      border-radius: 18px; padding: 26px 24px; transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
-    .section.alt .tour { background: var(--color-paper); }
-    .tour h3 { font-size: 21px; color: var(--color-forest); margin-bottom: 9px; }
-    .tour p { color: var(--color-ink-soft); font-size: 15.5px; }
-    @media (hover: hover) and (pointer: fine) {
-      .tour:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
-    }
-    .lieux-sec .cat-head { margin-bottom: clamp(24px, 3vw, 36px); }
+    .sub-h { text-align: center; font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--color-clay);
+      margin: clamp(28px, 4vw, 44px) 0 18px; }
+
+    /* lieux */
     .lieux { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); justify-content: center; gap: 14px; }
     .lieu { margin: 0; position: relative; aspect-ratio: 3/2; border-radius: 18px; overflow: hidden; }
     .lieu img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out-strong); }
@@ -82,17 +106,55 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
       font-family: var(--font-display); font-size: 18px;
       background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-forest) 88%, transparent)); }
     @media (hover: hover) and (pointer: fine) { .lieu:hover img { transform: scale(1.05); } }
-    .credit { margin-top: 20px; text-align: center; font-size: 12px; color: var(--color-stone); }
+    .credit { margin-top: 16px; text-align: center; font-size: 12px; color: var(--color-stone); }
+
+    /* balades (cartes centrées) */
+    .cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 360px)); justify-content: center; }
+    .tour { background: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+      border-radius: 18px; padding: 26px 24px; transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
+    .tour h3 { font-size: 21px; color: var(--color-forest); margin-bottom: 9px; }
+    .tour p { color: var(--color-ink-soft); font-size: 15.5px; }
+    @media (hover: hover) and (pointer: fine) {
+      .tour:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
+    }
+
+    /* versus */
+    .versus { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 0; max-width: 1080px; margin: 0 auto; }
+    .vs-side { padding: clamp(26px, 3.4vw, 40px); border-radius: 24px; color: var(--color-paper); position: relative; }
+    .vs-side.left { background: linear-gradient(160deg, var(--color-olive), var(--color-olive-deep)); }
+    .vs-side.right { background: linear-gradient(160deg, var(--color-clay), var(--color-clay-deep)); }
+    .vs-tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--color-gold); margin-bottom: 10px; }
+    .vs-side h3 { color: var(--color-paper); font-size: clamp(23px, 2.8vw, 30px); }
+    .vs-intro { color: color-mix(in srgb, var(--color-paper) 86%, transparent); margin: 10px 0 20px; font-size: 15.5px; }
+    .vs-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+    .vs-list li { padding-left: 16px; border-left: 2px solid color-mix(in srgb, var(--color-gold) 60%, transparent); }
+    .vs-list b { display: block; font-family: var(--font-display); font-size: 18px; color: var(--color-paper); }
+    .vs-list span { font-size: 14.5px; color: color-mix(in srgb, var(--color-paper) 80%, transparent); }
+    .vs-or { display: grid; place-items: center; padding: 0 6px; z-index: 2; }
+    .vs-or span { width: 66px; height: 66px; border-radius: 50%; display: grid; place-items: center;
+      background: var(--color-forest); color: var(--color-gold); font-family: var(--font-display); font-weight: 700; font-size: 22px;
+      border: 4px solid var(--color-paper-2); box-shadow: 0 14px 32px -12px color-mix(in srgb, var(--color-ink) 80%, transparent);
+      margin: 0 -22px; }
+
     .cta-band { background: var(--color-forest); }
     .cta-inner { text-align: center; max-width: 640px; }
     .cta-inner h2 { color: var(--color-paper); font-size: clamp(28px, 4vw, 44px); }
     .cta-inner .lead { color: color-mix(in srgb, var(--color-paper) 80%, transparent); margin: 16px 0 28px; }
+
+    @media (max-width: 900px) {
+      .versus { grid-template-columns: 1fr; }
+      .vs-or { padding: 14px 0; }
+      .vs-or span { margin: 0; }
+    }
   `],
 })
 export class Itineraires {
   private seo = inject(SeoService);
   site = SITE;
-  itineraires = ITINERAIRES;
+  journee = ITINERAIRES.find((c) => c.cle === 'journee')!;
+  deuxJours = ITINERAIRES.find((c) => c.cle === 'deux-jours')!;
+  longsSejours = ITINERAIRES.find((c) => c.cle === 'longs-sejours')!;
   lieux = [
     { slug: 'rennes-le-chateau', label: 'Rennes-le-Château — la Tour Magdala' },
     { slug: 'bugarach', label: 'Le Pic de Bugarach' },
