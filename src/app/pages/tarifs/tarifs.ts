@@ -92,7 +92,8 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
     .head { max-width: 720px; margin: 0 auto clamp(28px, 4vw, 44px); text-align: center; }
     .head h2 { font-size: clamp(28px, 4vw, 44px); }
     .head .lead { margin-top: 12px; font-size: 18px; }
-    .srv-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .srv-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 800px; margin: 0 auto; }
+    @media (max-width: 620px) { .srv-grid { grid-template-columns: 1fr; } }
     .srv { background: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
       border-radius: 20px; padding: 30px 26px; position: relative; overflow: hidden;
       transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
