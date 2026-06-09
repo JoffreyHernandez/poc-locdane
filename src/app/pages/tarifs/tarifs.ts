@@ -17,11 +17,15 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
 
     <section class="section">
       <div class="container narrow">
-        <div class="grid-prix" appReveal>
-          @for (t of tarifs; track t.duree) {
-            <div class="prix"><span class="d">{{ t.duree }}</span><span class="p">{{ t.prix }}</span></div>
+        <ul class="prix-list" appReveal>
+          @for (t of tarifs; track t.duree; let last = $last) {
+            <li [class.special]="last">
+              <span class="d">{{ t.duree }}</span>
+              <span class="dots" aria-hidden="true"></span>
+              <span class="p">{{ t.prix }}</span>
+            </li>
           }
-        </div>
+        </ul>
         <p class="pay" appReveal="80">Paiement par virement ou en espèces — nous n'acceptons pas les chèques.</p>
         <div class="devis" appReveal="120">
           <a class="btn btn-primary btn-press" routerLink="/contact">Demander un devis</a>
@@ -62,11 +66,17 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
   `,
   styles: [`
     .narrow { max-width: 720px; }
-    .grid-prix { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-    .prix { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 22px 16px;
-      background: var(--color-paper-2); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent); border-radius: 16px; }
-    .prix .d { font-size: 14px; color: var(--color-ink-soft); font-weight: 600; }
-    .prix .p { font-family: var(--font-display); font-size: 30px; color: var(--color-clay); line-height: 1; }
+    .prix-list { list-style: none; padding: 6px 0; margin: 0 auto; max-width: 560px;
+      background: var(--color-paper-2); border: 1px solid color-mix(in srgb, var(--color-ink) 9%, transparent);
+      border-radius: 20px; overflow: hidden; }
+    .prix-list li { display: flex; align-items: baseline; gap: 16px; padding: 15px clamp(20px, 4vw, 30px); }
+    .prix-list li + li { border-top: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent); }
+    .prix-list .d { font-size: 17px; font-weight: 600; color: var(--color-forest); white-space: nowrap; }
+    .prix-list .dots { flex: 1; align-self: center; border-bottom: 2px dotted color-mix(in srgb, var(--color-ink) 22%, transparent); }
+    .prix-list .p { font-family: var(--font-display); font-size: 25px; color: var(--color-clay); white-space: nowrap; }
+    .prix-list li.special { background: color-mix(in srgb, var(--color-clay) 12%, transparent); }
+    .prix-list li.special .d { color: var(--color-clay-deep); }
+    .prix-list li.special .p { color: var(--color-clay-deep); }
     .pay { text-align: center; margin-top: 22px; color: var(--color-ink-soft); font-size: 15px; }
     .devis { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
     .head { max-width: 720px; margin: 0 auto clamp(28px, 4vw, 44px); text-align: center; }
