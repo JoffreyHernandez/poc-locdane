@@ -64,7 +64,7 @@ import { SITE, DISTANCES } from '../../core/content/site';
 
     /* colonne accès : séparée par un filet, pas de boîte */
     .access { border-left: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent); padding-left: clamp(0px, 4vw, 56px); }
-    .dist { list-style: none; padding: 0; margin: 0 0 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .dist { list-style: none; padding: 0; margin: 0 0 26px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
     .dist li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px;
       padding: 11px 0; border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 9%, transparent); font-size: 16px; }
     .dist b { font-family: var(--font-display); color: var(--color-clay); font-size: 18px; }
