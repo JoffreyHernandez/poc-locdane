@@ -6,14 +6,8 @@ import { SITE, NAV } from '../core/content/site';
   standalone: true,
   template: `
     <header class="hd" [class.solid]="scrolled()">
-      <a class="brand" href="#top" (click)="close()">
-        <span class="mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
-            <circle cx="12" cy="12" r="11" fill="currentColor" opacity=".14" />
-            <path d="M7 14c0-2 1.4-3.4 2.6-4.2C9.2 8.6 9 7.8 9 7c0-.6.7-.9 1.1-.5l1 .9h1.8l1-.9c.4-.4 1.1-.1 1.1.5 0 .8-.2 1.6-.6 2.8C16.6 10.6 18 12 18 14c0 .6-.5 1-1 1-.7 0-1-.6-1.2-1.2-.2.7-.5 1.6-.5 2.7 0 .4-.3.7-.7.7h-.8c-.4 0-.7-.3-.7-.7V15h-.6v1.5c0 .4-.3.7-.7.7h-.8c-.4 0-.7-.3-.7-.7 0-1.1-.3-2-.5-2.7C8.3 14.4 8 15 7.3 15c-.5 0-.8-.4-.8-1Z" fill="currentColor"/>
-          </svg>
-        </span>
-        <span class="word">Loc d'<em>Ânes</em></span>
+      <a class="brand" href="#top" (click)="close()" aria-label="Loc d'Ânes — accueil">
+        <img src="assets/logo.png" alt="Loc d'Ânes" width="300" height="307" />
       </a>
 
       <nav class="nav" [class.open]="open()">
@@ -46,10 +40,10 @@ import { SITE, NAV } from '../core/content/site';
       box-shadow: 0 1px 0 color-mix(in srgb, var(--color-ink) 8%, transparent);
       padding-top: 12px; padding-bottom: 12px;
     }
-    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--color-forest); }
-    .mark { color: var(--color-clay); display: flex; }
-    .word { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
-    .word em { color: var(--color-clay); font-style: normal; }
+    .brand { display: inline-flex; align-items: center; }
+    .brand img { height: 54px; width: auto; display: block; transition: height 300ms var(--ease-out-strong);
+      filter: drop-shadow(0 2px 10px color-mix(in srgb, var(--color-forest) 30%, transparent)); }
+    .hd.solid .brand img { height: 44px; filter: none; }
 
     .nav { margin-left: auto; display: flex; align-items: center; gap: 26px; }
     .nav > a { position: relative; font-size: 15px; font-weight: 500; color: var(--color-ink-soft); padding: 4px 0; }
@@ -61,6 +55,11 @@ import { SITE, NAV } from '../core/content/site';
     @media (hover: hover) and (pointer: fine) {
       .nav > a:hover { color: var(--color-forest); }
       .nav > a:hover::after { transform: scaleX(1); }
+    }
+    /* Par-dessus la photo du hero (avant scroll) : nav claire sur desktop */
+    @media (min-width: 861px) {
+      .hd:not(.solid) .nav > a { color: color-mix(in srgb, var(--color-paper) 92%, transparent);
+        text-shadow: 0 1px 8px color-mix(in srgb, var(--color-forest) 50%, transparent); }
     }
     .tel-m { display: none; }
 

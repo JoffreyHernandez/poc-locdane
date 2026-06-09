@@ -24,48 +24,52 @@
   .btn-ghost:hover { background: color-mix(in srgb, var(--color-forest) 8%, transparent); }
 }
 
-/* ===== HERO ===== */
+/* ===== HERO (fond photo : crêtes du Pays Cathare) ===== */
 .hero {
-  position: relative; min-height: 94vh; display: flex; flex-direction: column;
+  position: relative; min-height: 96vh; display: flex; flex-direction: column;
   align-items: center; justify-content: center; text-align: center; overflow: hidden;
-  padding: 120px clamp(16px, 5vw, 56px) 80px;
+  padding: 140px clamp(16px, 5vw, 56px) 96px;
+  background: var(--color-forest); color: var(--color-paper);
+}
+.hero-bg { position: absolute; inset: 0; z-index: 0; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: center 36%; }
+.hero-scrim {
+  position: absolute; inset: 0;
   background:
-    radial-gradient(120% 90% at 50% -10%, color-mix(in srgb, var(--color-gold) 22%, transparent), transparent 55%),
-    linear-gradient(180deg, var(--color-paper) 0%, var(--color-paper-2) 100%);
+    radial-gradient(120% 78% at 50% 62%, color-mix(in srgb, var(--color-forest) 58%, transparent), transparent 72%),
+    linear-gradient(180deg, color-mix(in srgb, var(--color-forest) 32%, transparent) 0%, transparent 28%, color-mix(in srgb, var(--color-forest) 84%, transparent) 100%);
 }
-.hero-atmo { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.hero-atmo .sun {
-  position: absolute; top: 12%; left: 50%; width: 320px; height: 320px; transform: translateX(-50%);
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-gold) 55%, transparent), transparent 62%);
-  filter: blur(6px);
-}
-.ridge { position: absolute; left: 0; bottom: 0; width: 100%; height: clamp(160px, 26vw, 320px); }
-.ridge-back path { fill: color-mix(in srgb, var(--color-olive) 38%, var(--color-paper)); }
-.ridge-front path { fill: color-mix(in srgb, var(--color-olive-deep) 70%, var(--color-paper)); }
 
-.hero-inner { position: relative; z-index: 1; max-width: 920px; }
+.hero-inner { position: relative; z-index: 1; max-width: 940px; }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600;
-  letter-spacing: .04em; color: var(--color-olive-deep);
-  background: color-mix(in srgb, var(--color-paper) 70%, transparent);
+  letter-spacing: .04em; color: var(--color-paper);
+  background: color-mix(in srgb, var(--color-forest) 42%, transparent);
+  backdrop-filter: blur(6px);
   padding: 8px 16px; border-radius: 999px; margin-bottom: 26px;
-  border: 1px solid color-mix(in srgb, var(--color-olive) 30%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-paper) 28%, transparent);
 }
-.eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-clay); }
-.hero h1 { font-size: clamp(44px, 8vw, 92px); font-weight: 500; }
+.eyebrow .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-gold); }
+.hero h1 { font-size: clamp(44px, 8vw, 92px); font-weight: 500; color: var(--color-paper);
+  text-shadow: 0 2px 32px color-mix(in srgb, var(--color-forest) 55%, transparent); }
 .hero h1 span { display: block; }
-.hero h1 em { font-style: italic; color: var(--color-clay); }
-.lede { margin: 28px auto 0; max-width: 52ch; font-size: clamp(18px, 2.2vw, 21px); color: var(--color-ink-soft); }
+.hero h1 em { font-style: italic; color: var(--color-gold); }
+.lede { margin: 28px auto 0; max-width: 52ch; font-size: clamp(18px, 2.2vw, 21px);
+  color: color-mix(in srgb, var(--color-paper) 92%, transparent); }
 .cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 38px; }
+.hero .btn-ghost { border-color: color-mix(in srgb, var(--color-paper) 55%, transparent); color: var(--color-paper); }
+@media (hover: hover) and (pointer: fine) {
+  .hero .btn-ghost:hover { background: color-mix(in srgb, var(--color-paper) 14%, transparent); }
+}
 
-.scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 1; }
+.scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 1; }
 .scroll-hint span {
-  display: block; width: 26px; height: 42px; border: 2px solid color-mix(in srgb, var(--color-forest) 35%, transparent);
+  display: block; width: 26px; height: 42px; border: 2px solid color-mix(in srgb, var(--color-paper) 55%, transparent);
   border-radius: 999px; position: relative;
 }
 .scroll-hint span::after {
   content: ''; position: absolute; top: 8px; left: 50%; width: 4px; height: 8px; border-radius: 2px;
-  background: var(--color-clay); transform: translateX(-50%); animation: scrolldot 1.6s var(--ease-in-out-strong) infinite;
+  background: var(--color-gold); transform: translateX(-50%); animation: scrolldot 1.6s var(--ease-in-out-strong) infinite;
 }
 @keyframes scrolldot { 0% { opacity: 0; transform: translate(-50%, 0); } 40% { opacity: 1; } 80% { opacity: 0; transform: translate(-50%, 12px); } 100% { opacity: 0; } }
 
@@ -106,11 +110,11 @@
 .link-arrow svg { transition: transform 220ms var(--ease-out-strong); }
 @media (hover: hover) and (pointer: fine) { .link-arrow:hover svg { transform: translateX(4px); } }
 .anes-photo {
-  margin: 0; aspect-ratio: 4 / 3; border-radius: 24px; display: grid; place-items: center;
-  background: linear-gradient(135deg, color-mix(in srgb, var(--color-olive) 30%, var(--color-paper)), var(--color-sand));
-  color: color-mix(in srgb, var(--color-ink) 40%, transparent); font-size: 14px; letter-spacing: .08em; text-transform: uppercase;
+  margin: 0; aspect-ratio: 1 / 1; border-radius: 24px; overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
+  box-shadow: 0 32px 64px -44px color-mix(in srgb, var(--color-ink) 75%, transparent);
 }
+.anes-photo img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ===== SAISONS ===== */
 .seasons { background: var(--color-paper-2); }

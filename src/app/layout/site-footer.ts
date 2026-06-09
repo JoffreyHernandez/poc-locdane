@@ -8,7 +8,7 @@ import { SITE, NAV } from '../core/content/site';
     <footer class="ft" id="contact">
       <div class="grid">
         <div class="col brandcol">
-          <span class="word">Loc d'<em>Ânes</em></span>
+          <img class="ftlogo" src="assets/logo.png" alt="Loc d'Ânes" width="300" height="307" />
           <p class="tag">{{ site.baseline }}.</p>
           <p class="saison">{{ site.saison }}</p>
         </div>
@@ -37,8 +37,7 @@ import { SITE, NAV } from '../core/content/site';
   styles: [`
     .ft { background: var(--color-forest); color: color-mix(in srgb, var(--color-paper) 84%, transparent); padding: clamp(48px, 7vw, 88px) clamp(16px, 5vw, 56px) 28px; }
     .grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; max-width: 1180px; margin: 0 auto; }
-    .word { font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--color-paper); }
-    .word em { color: var(--color-gold); font-style: normal; }
+    .ftlogo { height: 92px; width: auto; display: block; }
     .tag { margin: 12px 0 6px; max-width: 30ch; line-height: 1.5; }
     .saison { color: var(--color-gold); font-weight: 600; }
     h4 { font-family: var(--font-sans); font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: color-mix(in srgb, var(--color-paper) 60%, transparent); margin-bottom: 16px; }
