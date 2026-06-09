@@ -24,12 +24,12 @@ export interface NavLink { label: string; path: string; }
 
 /** Navigation principale — pages prérendues. */
 export const NAV: NavLink[] = [
+  { label: 'Accueil', path: '/' },
   { label: 'Les itinéraires', path: '/itineraires' },
   { label: 'Le troupeau', path: '/le-troupeau' },
   { label: 'Hébergeurs', path: '/hebergeurs' },
   { label: 'Tarifs', path: '/tarifs' },
   { label: 'Qui sommes-nous', path: '/qui-sommes-nous' },
-  { label: 'Contact', path: '/contact' },
 ];
 
 export interface Formule { titre: string; texte: string; tag: string; }

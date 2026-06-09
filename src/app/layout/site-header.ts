@@ -15,8 +15,9 @@ import { SITE, NAV } from '../core/content/site';
 
       <nav class="nav" [class.open]="open()">
         @for (l of nav; track l.path) {
-          <a [routerLink]="l.path" routerLinkActive="active" (click)="close()">{{ l.label }}</a>
+          <a [routerLink]="l.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: l.path === '/' }" (click)="close()">{{ l.label }}</a>
         }
+        <a class="tel-m" routerLink="/contact" (click)="close()">Contact</a>
       </nav>
 
       <a class="tel btn-press" routerLink="/contact" (click)="close()">
