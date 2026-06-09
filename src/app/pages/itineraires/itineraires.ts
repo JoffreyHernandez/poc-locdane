@@ -23,9 +23,33 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
           <p class="lead" appReveal="60">{{ journee.intro }}</p>
         </header>
 
-        <p class="sub-h" appReveal>Les lieux que vous traverserez</p>
+        <div class="cards-grid balades">
+          @for (t of journee.tours; track t.nom; let i = $index) {
+            <article class="tour" [appReveal]="i * 40">
+              @if (photoByTour[t.nom]; as ph) {
+                <div class="t-photo">
+                  <img [src]="'assets/lieux/' + ph.slug + '.jpg'" [alt]="ph.lieu" loading="lazy" />
+                  <span class="t-loc">
+                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    {{ ph.lieu }}
+                  </span>
+                </div>
+              } @else {
+                <div class="t-head" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18l5-12 4 7 3-4 6 9z"/><circle cx="8" cy="6" r="1.4"/></svg>
+                </div>
+              }
+              <div class="t-body">
+                <h3>{{ t.nom }}</h3>
+                <p>{{ t.texte }}</p>
+              </div>
+            </article>
+          }
+        </div>
+
+        <p class="sub-h" appReveal>Aussi sur les chemins</p>
         <div class="lieux">
-          @for (l of lieux; track l.slug; let i = $index) {
+          @for (l of autresLieux; track l.slug; let i = $index) {
             <figure class="lieu" [appReveal]="(i % 3) * 60">
               <img [src]="'assets/lieux/' + l.slug + '.jpg'" [alt]="l.label" loading="lazy" />
               <figcaption>{{ l.label }}</figcaption>
@@ -33,16 +57,6 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
           }
         </div>
         <p class="credit">{{ credit }}</p>
-
-        <p class="sub-h" appReveal>Nos balades</p>
-        <div class="cards-grid">
-          @for (t of journee.tours; track t.nom; let i = $index) {
-            <article class="tour" [appReveal]="i * 40">
-              <h3>{{ t.nom }}</h3>
-              <p>{{ t.texte }}</p>
-            </article>
-          }
-        </div>
       </div>
     </section>
 
@@ -108,14 +122,25 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
     @media (hover: hover) and (pointer: fine) { .lieu:hover img { transform: scale(1.05); } }
     .credit { margin-top: 16px; text-align: center; font-size: 12px; color: var(--color-stone); }
 
-    /* balades (cartes centrées) */
-    .cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 360px)); justify-content: center; }
+    /* balades (cartes uniformes, centrées) */
+    .cards-grid.balades { grid-template-columns: repeat(auto-fit, minmax(280px, 360px)); justify-content: center; }
     .tour { background: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
-      border-radius: 18px; padding: 26px 24px; transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
-    .tour h3 { font-size: 21px; color: var(--color-forest); margin-bottom: 9px; }
+      border-radius: 18px; overflow: hidden; display: flex; flex-direction: column;
+      transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
+    .t-photo { position: relative; aspect-ratio: 16/10; overflow: hidden; }
+    .t-photo img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out-strong); }
+    .t-loc { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 5px;
+      background: color-mix(in srgb, var(--color-forest) 90%, transparent); color: var(--color-paper);
+      font-size: 12.5px; font-weight: 600; padding: 5px 11px; border-radius: 999px; }
+    .t-head { aspect-ratio: 16/10; display: grid; place-items: center;
+      color: color-mix(in srgb, var(--color-paper) 92%, transparent);
+      background: linear-gradient(150deg, var(--color-olive), var(--color-olive-deep)); }
+    .t-body { padding: 22px 22px 24px; }
+    .tour h3 { font-size: 20px; color: var(--color-forest); margin-bottom: 9px; }
     .tour p { color: var(--color-ink-soft); font-size: 15.5px; }
     @media (hover: hover) and (pointer: fine) {
-      .tour:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
+      .tour:hover { transform: translateY(-5px); box-shadow: 0 24px 44px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
+      .tour:hover .t-photo img { transform: scale(1.05); }
     }
 
     /* versus */
@@ -163,6 +188,13 @@ export class Itineraires {
     { slug: 'coustaussa', label: 'Le château de Coustaussa' },
     { slug: 'rennes-les-bains', label: 'Rennes-les-Bains & sa rivière' },
   ];
+  /** Balade ↔ lieu : quand une balade traverse un lieu emblématique, sa carte porte la photo. */
+  photoByTour: Record<string, { slug: string; lieu: string }> = {
+    'Sur le plateau de Rennes-le-Château': { slug: 'rennes-le-chateau', lieu: 'Rennes-le-Château' },
+    'Rennes-les-Bains et sa rivière': { slug: 'rennes-les-bains', lieu: 'Rennes-les-Bains' },
+  };
+  /** Lieux non rattachés à une balade → galerie « Aussi sur les chemins ». */
+  autresLieux = this.lieux.filter((l) => l.slug !== 'rennes-le-chateau' && l.slug !== 'rennes-les-bains');
   credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, CORLIN (CC BY-SA / CC BY / CC0).';
   constructor() {
     this.seo.setPage({
