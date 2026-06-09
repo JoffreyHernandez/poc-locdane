@@ -24,30 +24,44 @@
     </div>
   </div>
 
-  <a class="scroll-hint rise" style="animation-delay: 760ms" href="#randonnees" aria-label="Descendre">
+  <a class="scroll-hint rise" style="animation-delay: 760ms" href="#intro" aria-label="Descendre">
     <span></span>
   </a>
 </section>
 
-<!-- ===================== FORMULES ===================== -->
-<section class="band" id="randonnees">
-  <header class="band-head">
-    <p class="kicker" appReveal>Vos aventures</p>
-    <h2 appReveal="80">Choisissez votre façon de marcher</h2>
-    <p class="sub" appReveal="160">
-      Que vous soyez seul, en couple, en famille ou entre amis, débutant ou confirmé —
-      il y a une sortie à votre rythme.
+<!-- ===================== INTRO ===================== -->
+<section class="intro" id="intro">
+  <div class="container intro-inner">
+    <p class="kicker" appReveal>Bienvenue à Loc d’Ânes</p>
+    <h2 appReveal="80">L’âne porte vos affaires.<br />Vous n’avez qu’à savourer le chemin.</h2>
+    <p class="intro-txt" appReveal="160">
+      Sur les hauteurs de la vallée de l’Aude, nos ânes marchent à 2-3 km/h — le tempo idéal
+      pour regarder vraiment le paysage. Points de vue, rivières où se baigner, châteaux cathares
+      et terres d’argile vous attendent, du printemps à l’automne.
     </p>
-  </header>
+  </div>
+</section>
 
-  <div class="cards">
-    @for (f of formules; track f.titre; let i = $index) {
-      <article class="card" [appReveal]="i * 70">
-        <span class="card-tag">{{ f.tag }}</span>
-        <h3>{{ f.titre }}</h3>
-        <p>{{ f.texte }}</p>
-      </article>
-    }
+<!-- ===================== TUILES ===================== -->
+<section class="tiles-sec">
+  <div class="container">
+    <header class="band-head">
+      <p class="kicker" appReveal>Par où commencer ?</p>
+      <h2 appReveal="80">Explorez Loc d’Ânes</h2>
+    </header>
+    <div class="tiles">
+      @for (t of tiles; track t.path; let i = $index) {
+        <a class="tile btn-press" [routerLink]="t.path" [appReveal]="i * 70">
+          <img [src]="t.img" [alt]="t.title" loading="lazy" />
+          <div class="tile-ov" aria-hidden="true"></div>
+          <div class="tile-cap">
+            <h3>{{ t.title }}</h3>
+            <p>{{ t.text }}</p>
+            <span class="go">Découvrir →</span>
+          </div>
+        </a>
+      }
+    </div>
   </div>
 </section>
 
@@ -58,8 +72,8 @@
     <h2 appReveal="80">Il est 9 h. C’est le grand départ.</h2>
     <p appReveal="160">
       Après un briefing sur votre nouveau rôle d’ânier et sur votre parcours, vous voilà parti,
-      votre âne chargé de vos affaires, sur les chemins cathares. Points de vue, forêts, terres
-      d’argile, rapaces et fleurs — et quelques trésors : châteaux perchés et baignades en rivière.
+      votre âne chargé de vos affaires, sur les chemins cathares. Forêts, terres d’argile,
+      rapaces et fleurs — et quelques trésors : châteaux perchés et baignades en rivière.
     </p>
     <div class="stats">
       <div class="stat" appReveal="220"><span class="num">2–3</span><span class="lbl">km/h, le bon tempo</span></div>
@@ -77,29 +91,6 @@
   </div>
 </section>
 
-<!-- ===================== LES ÂNES ===================== -->
-<section class="band anes" id="anes">
-  <div class="anes-grid">
-    <div class="anes-copy">
-      <p class="kicker" appReveal>Nos compagnons</p>
-      <h2 appReveal="80">L’âne qui vous correspond</h2>
-      <p appReveal="160">
-        Grand ou petit, tout en douceur avec les enfants ou costaud pour les longs séjours,
-        ami des chiens ou amateur de grandes étapes : nous choisissons avec soin celui qui
-        marchera à vos côtés. Ensemble, nous veillons à ce que sa charge soit toujours respectée.
-      </p>
-      <a class="link-arrow btn-press" routerLink="/le-troupeau" appReveal="220">
-        Faire connaissance avec le troupeau
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-      </a>
-    </div>
-    <figure class="anes-photo" appReveal="120">
-      <img src="assets/ane-contact.jpg" alt="Un âne harnaché de Loc d'Ânes aux côtés d'un randonneur, prêt à partir sur les chemins"
-           width="600" height="600" loading="lazy" />
-    </figure>
-  </div>
-</section>
-
 <!-- ===================== SAISONS ===================== -->
 <section class="seasons" id="saisons">
   <header class="band-head">
@@ -114,36 +105,6 @@
         <p>{{ s.texte }}</p>
       </article>
     }
-  </div>
-</section>
-
-<!-- ===================== EXPLORER ===================== -->
-<section class="band explore">
-  <header class="band-head">
-    <p class="kicker" appReveal>Explorer</p>
-    <h2 appReveal="80">Tout ce qui vous attend</h2>
-  </header>
-  <div class="cards">
-    <a class="card explore-card btn-press" routerLink="/itineraires" appReveal>
-      <h3>Les itinéraires</h3>
-      <p>Balades à la journée, randos de 2 jours et longs séjours en itinérance.</p>
-      <span class="go">Découvrir →</span>
-    </a>
-    <a class="card explore-card btn-press" routerLink="/le-troupeau" [appReveal]="70">
-      <h3>Le troupeau</h3>
-      <p>Près de 40 ânes, chacun avec son caractère et son prénom.</p>
-      <span class="go">Faire connaissance →</span>
-    </a>
-    <a class="card explore-card btn-press" routerLink="/hebergeurs" [appReveal]="140">
-      <h3>Les hébergeurs</h3>
-      <p>Nos partenaires écoresponsables, étape après étape.</p>
-      <span class="go">Voir la liste →</span>
-    </a>
-    <a class="card explore-card btn-press" routerLink="/tarifs" [appReveal]="210">
-      <h3>Tarifs & devis</h3>
-      <p>Des tarifs clairs et un accompagnement sur mesure.</p>
-      <span class="go">Consulter →</span>
-    </a>
   </div>
 </section>
 

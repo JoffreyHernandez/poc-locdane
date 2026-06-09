@@ -2,7 +2,9 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
-import { SITE, FORMULES, NIVEAUX, SAISONS } from '../../core/content/site';
+import { SITE, NIVEAUX, SAISONS } from '../../core/content/site';
+
+interface Tile { title: string; text: string; path: string; img: string; }
 
 @Component({
   selector: 'app-home',
@@ -15,9 +17,14 @@ export class Home {
   private seo = inject(SeoService);
 
   site = SITE;
-  formules = FORMULES;
   niveaux = NIVEAUX;
   saisons = SAISONS;
+  tiles: Tile[] = [
+    { title: 'Les itinéraires', text: 'Journée, 2 jours, longs séjours', path: '/itineraires', img: 'assets/anes/anes-charges.jpg' },
+    { title: 'Le troupeau', text: 'Près de 40 ânes, par leur prénom', path: '/le-troupeau', img: 'assets/ane-contact.jpg' },
+    { title: 'Les hébergeurs', text: 'Nos partenaires écoresponsables', path: '/hebergeurs', img: 'assets/hebergeurs/la-jouane.jpg' },
+    { title: 'Tarifs & devis', text: 'Clairs, et sur mesure', path: '/tarifs', img: 'assets/anes/ane-3.jpg' },
+  ];
 
   constructor() {
     this.seo.setPage({

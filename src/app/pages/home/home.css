@@ -138,6 +138,31 @@
 .final h2 { font-size: clamp(32px, 5vw, 54px); color: var(--color-paper); }
 .final p { margin: 18px auto 30px; font-size: 19px; color: color-mix(in srgb, var(--color-paper) 88%, transparent); }
 
+/* ===== INTRO ===== */
+.intro { padding: clamp(64px, 9vw, 112px) 0; text-align: center; }
+.intro-inner { max-width: 840px; margin: 0 auto; }
+.intro h2 { font-size: clamp(28px, 4.6vw, 50px); }
+.intro-txt { margin: 22px auto 0; max-width: 58ch; font-size: 19px; color: var(--color-ink-soft); }
+
+/* ===== TUILES PHOTO ===== */
+.tiles-sec { padding: 0 0 clamp(64px, 9vw, 112px); }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(248px, 1fr)); gap: 16px; }
+.tile { position: relative; display: block; aspect-ratio: 3 / 4; border-radius: 22px; overflow: hidden;
+  text-decoration: none; color: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent); }
+.tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 700ms var(--ease-out-strong); }
+.tile-ov { position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 28%, color-mix(in srgb, var(--color-forest) 86%, transparent) 100%); }
+.tile-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px; }
+.tile-cap h3 { font-size: 24px; color: var(--color-paper); }
+.tile-cap p { font-size: 14.5px; color: color-mix(in srgb, var(--color-paper) 86%, transparent); margin-top: 4px; }
+.tile-cap .go { display: inline-block; margin-top: 12px; font-weight: 600; color: var(--color-gold);
+  transition: transform 240ms var(--ease-out-strong); }
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover img { transform: scale(1.06); }
+  .tile:hover .go { transform: translateX(4px); }
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
   .day, .anes-grid { grid-template-columns: 1fr; }
