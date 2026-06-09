@@ -16,18 +16,18 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
     </section>
 
     <section class="section">
-      <div class="container narrow">
-        <ul class="prix-list" appReveal>
+      <div class="container">
+        <div class="trail" appReveal>
           @for (t of tarifs; track t.duree; let last = $last) {
-            <li [class.special]="last">
-              <span class="d">{{ t.duree }}</span>
-              <span class="dots" aria-hidden="true"></span>
-              <span class="p">{{ t.prix }}</span>
-            </li>
+            <div class="step" [class.beyond]="last">
+              <span class="node"><span class="dot"></span></span>
+              <span class="day">{{ t.duree }}</span>
+              <span class="price">{{ t.prix }}</span>
+            </div>
           }
-        </ul>
-        <p class="pay" appReveal="80">Paiement par virement ou en espèces — nous n'acceptons pas les chèques.</p>
-        <div class="devis" appReveal="120">
+        </div>
+        <p class="pay" appReveal="120">Paiement par virement ou en espèces — nous n'acceptons pas les chèques.</p>
+        <div class="devis" appReveal="160">
           <a class="btn btn-primary btn-press" routerLink="/contact">Demander un devis</a>
         </div>
       </div>
@@ -66,17 +66,27 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
   `,
   styles: [`
     .narrow { max-width: 720px; }
-    .prix-list { list-style: none; padding: 6px 0; margin: 0 auto; max-width: 560px;
-      background: var(--color-paper-2); border: 1px solid color-mix(in srgb, var(--color-ink) 9%, transparent);
-      border-radius: 20px; overflow: hidden; }
-    .prix-list li { display: flex; align-items: baseline; gap: 16px; padding: 15px clamp(20px, 4vw, 30px); }
-    .prix-list li + li { border-top: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent); }
-    .prix-list .d { font-size: 17px; font-weight: 600; color: var(--color-forest); white-space: nowrap; }
-    .prix-list .dots { flex: 1; align-self: center; border-bottom: 2px dotted color-mix(in srgb, var(--color-ink) 22%, transparent); }
-    .prix-list .p { font-family: var(--font-display); font-size: 25px; color: var(--color-clay); white-space: nowrap; }
-    .prix-list li.special { background: color-mix(in srgb, var(--color-clay) 12%, transparent); }
-    .prix-list li.special .d { color: var(--color-clay-deep); }
-    .prix-list li.special .p { color: var(--color-clay-deep); }
+    /* tarifs « sentier » : chaque durée est une étape sur un chemin */
+    .trail { position: relative; display: flex; justify-content: space-between; gap: 6px; max-width: 940px; margin: 0 auto; }
+    .trail::before { content: ''; position: absolute; top: 11px; left: 7%; right: 7%;
+      border-top: 2px dashed color-mix(in srgb, var(--color-clay) 50%, transparent); z-index: 0; }
+    .step { position: relative; z-index: 1; flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .node { height: 22px; display: grid; place-items: center; }
+    .dot { width: 16px; height: 16px; border-radius: 50%; background: var(--color-clay); border: 3px solid var(--color-paper);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-clay) 35%, transparent); }
+    .day { font-size: 13px; font-weight: 600; color: var(--color-ink-soft); white-space: nowrap; }
+    .price { font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 26px); color: var(--color-clay); line-height: 1; white-space: nowrap; }
+    .step.beyond .dot { background: var(--color-gold); }
+    .step.beyond .day, .step.beyond .price { color: var(--color-clay-deep); }
+    .step.beyond .price { font-size: clamp(15px, 2vw, 18px); }
+    @media (max-width: 720px) {
+      .trail { flex-direction: column; gap: 0; max-width: 360px; }
+      .trail::before { top: 0; bottom: 0; left: 9px; right: auto; border-top: 0;
+        border-left: 2px dashed color-mix(in srgb, var(--color-clay) 50%, transparent); }
+      .step { flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px; padding: 11px 0; }
+      .node { height: auto; }
+      .day { flex: 1; font-size: 15px; }
+    }
     .pay { text-align: center; margin-top: 22px; color: var(--color-ink-soft); font-size: 15px; }
     .devis { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
     .head { max-width: 720px; margin: 0 auto clamp(28px, 4vw, 44px); text-align: center; }
