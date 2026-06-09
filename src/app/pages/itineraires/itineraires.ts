@@ -14,6 +14,24 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
       <p class="lead">Du tour de ferme d'1 h 30 à la grande boucle de plusieurs jours — chaque parcours s'adapte à votre rythme, à votre niveau et à la saison.</p>
     </section>
 
+    <section class="section lieux-sec">
+      <div class="container">
+        <header class="cat-head">
+          <h2 appReveal>Les lieux que vous traverserez</h2>
+          <p class="lead" appReveal="60">Châteaux cathares, pics, gorges et rivières — un avant-goût des paysages au fil des chemins.</p>
+        </header>
+        <div class="lieux">
+          @for (l of lieux; track l.slug; let i = $index) {
+            <figure class="lieu" [appReveal]="(i % 3) * 60">
+              <img [src]="'assets/lieux/' + l.slug + '.jpg'" [alt]="l.label" loading="lazy" />
+              <figcaption>{{ l.label }}</figcaption>
+            </figure>
+          }
+        </div>
+        <p class="credit">{{ credit }}</p>
+      </div>
+    </section>
+
     @for (cat of itineraires; track cat.cle; let odd = $odd) {
       <section class="section" [class.alt]="odd">
         <div class="container">
@@ -53,6 +71,15 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
     @media (hover: hover) and (pointer: fine) {
       .tour:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
     }
+    .lieux-sec .cat-head { margin-bottom: clamp(24px, 3vw, 36px); }
+    .lieux { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .lieu { margin: 0; position: relative; aspect-ratio: 3/2; border-radius: 18px; overflow: hidden; }
+    .lieu img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out-strong); }
+    .lieu figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px; color: var(--color-paper);
+      font-family: var(--font-display); font-size: 18px;
+      background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--color-forest) 88%, transparent)); }
+    @media (hover: hover) and (pointer: fine) { .lieu:hover img { transform: scale(1.05); } }
+    .credit { margin-top: 20px; text-align: center; font-size: 12px; color: var(--color-stone); }
     .cta-band { background: var(--color-forest); }
     .cta-inner { text-align: center; max-width: 640px; }
     .cta-inner h2 { color: var(--color-paper); font-size: clamp(28px, 4vw, 44px); }
@@ -63,6 +90,15 @@ export class Itineraires {
   private seo = inject(SeoService);
   site = SITE;
   itineraires = ITINERAIRES;
+  lieux = [
+    { slug: 'rennes-le-chateau', label: 'Rennes-le-Château — la Tour Magdala' },
+    { slug: 'bugarach', label: 'Le Pic de Bugarach' },
+    { slug: 'galamus', label: 'Les Gorges de Galamus' },
+    { slug: 'arques', label: 'Le château d’Arques' },
+    { slug: 'coustaussa', label: 'Le château de Coustaussa' },
+    { slug: 'rennes-les-bains', label: 'Rennes-les-Bains & sa rivière' },
+  ];
+  credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, Cazaintre (CC BY-SA / CC0 / domaine public).';
   constructor() {
     this.seo.setPage({
       title: 'Les itinéraires — randonnées avec un âne en Pays Cathare | Loc d’Ânes',
