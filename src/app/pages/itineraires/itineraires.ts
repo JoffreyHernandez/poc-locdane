@@ -63,6 +63,8 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
     .cat-head { max-width: 760px; margin: 0 auto clamp(28px, 4vw, 48px); text-align: center; }
     .cat-head h2 { font-size: clamp(28px, 4vw, 44px); }
     .cat-head .lead { margin-top: 12px; font-size: 18px; }
+    /* grilles centrées : les items de dernière ligne ne s'étirent plus */
+    .cards-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 360px)); justify-content: center; }
     .tour { background: var(--color-paper); border: 1px solid color-mix(in srgb, var(--color-ink) 8%, transparent);
       border-radius: 18px; padding: 26px 24px; transition: transform 320ms var(--ease-out-strong), box-shadow 320ms var(--ease-out-strong); }
     .section.alt .tour { background: var(--color-paper); }
@@ -72,7 +74,7 @@ import { SITE, ITINERAIRES } from '../../core/content/site';
       .tour:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -28px color-mix(in srgb, var(--color-ink) 60%, transparent); }
     }
     .lieux-sec .cat-head { margin-bottom: clamp(24px, 3vw, 36px); }
-    .lieux { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+    .lieux { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 400px)); justify-content: center; gap: 14px; }
     .lieu { margin: 0; position: relative; aspect-ratio: 3/2; border-radius: 18px; overflow: hidden; }
     .lieu img { width: 100%; height: 100%; object-fit: cover; transition: transform 600ms var(--ease-out-strong); }
     .lieu figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px; color: var(--color-paper);
@@ -98,7 +100,7 @@ export class Itineraires {
     { slug: 'coustaussa', label: 'Le château de Coustaussa' },
     { slug: 'rennes-les-bains', label: 'Rennes-les-Bains & sa rivière' },
   ];
-  credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, Cazaintre (CC BY-SA / CC0 / domaine public).';
+  credit = 'Photos des lieux : Wikimedia Commons — K. Golik, Vassil, Pinpin, Tournasol7, CORLIN (CC BY-SA / CC BY / CC0).';
   constructor() {
     this.seo.setPage({
       title: 'Les itinéraires — randonnées avec un âne en Pays Cathare | Loc d’Ânes',
