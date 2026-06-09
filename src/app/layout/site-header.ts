@@ -1,5 +1,6 @@
-import { Component, HostListener, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, HostListener, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs';
 import { SITE, NAV } from '../core/content/site';
 
 @Component({
@@ -7,7 +8,7 @@ import { SITE, NAV } from '../core/content/site';
   standalone: true,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <header class="hd" [class.solid]="scrolled()">
+    <header class="hd" [class.solid]="scrolled() || !isHome()">
       <a class="brand" routerLink="/" (click)="close()" aria-label="Loc d'Ânes — accueil">
         <img src="assets/logo.png" alt="Loc d'Ânes" width="300" height="307" />
       </a>
@@ -105,10 +106,19 @@ import { SITE, NAV } from '../core/content/site';
   `],
 })
 export class SiteHeader {
+  private router = inject(Router);
   site = SITE;
   nav = NAV;
   scrolled = signal(false);
   open = signal(false);
+  /** Vrai uniquement sur l'accueil (en-tête transparent par-dessus la photo du hero). */
+  isHome = signal(this.router.url.split('?')[0] === '/');
+
+  constructor() {
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((e) => this.isHome.set(e.urlAfterRedirects.split('?')[0] === '/'));
+  }
 
   @HostListener('window:scroll')
   onScroll() { this.scrolled.set((globalThis.scrollY ?? 0) > 24); }
