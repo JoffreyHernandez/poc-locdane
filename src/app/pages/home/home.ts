@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
-import { SITE, FORMULES, NIVEAUX, SAISONS, AVIS } from '../../core/content/site';
+import { SITE, FORMULES, NIVEAUX, SAISONS } from '../../core/content/site';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -17,7 +18,6 @@ export class Home {
   formules = FORMULES;
   niveaux = NIVEAUX;
   saisons = SAISONS;
-  avis = AVIS;
 
   constructor() {
     this.seo.setPage({

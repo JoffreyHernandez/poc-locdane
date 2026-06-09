@@ -19,7 +19,7 @@
       Une autre façon de voyager : lente, vivante, à hauteur de sentier.
     </p>
     <div class="cta rise" style="animation-delay: 560ms">
-      <a class="btn btn-primary btn-press" href="#randonnees">Découvrir les randonnées</a>
+      <a class="btn btn-primary btn-press" routerLink="/itineraires">Découvrir les itinéraires</a>
       <a class="btn btn-ghost btn-press" [href]="'tel:' + site.telephoneE164">Préparer ma sortie</a>
     </div>
   </div>
@@ -88,7 +88,7 @@
         ami des chiens ou amateur de grandes étapes : nous choisissons avec soin celui qui
         marchera à vos côtés. Ensemble, nous veillons à ce que sa charge soit toujours respectée.
       </p>
-      <a class="link-arrow btn-press" [href]="'tel:' + site.telephoneE164" appReveal="220">
+      <a class="link-arrow btn-press" routerLink="/le-troupeau" appReveal="220">
         Faire connaissance avec le troupeau
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
@@ -117,19 +117,33 @@
   </div>
 </section>
 
-<!-- ===================== AVIS ===================== -->
-<section class="band reviews" id="avis">
+<!-- ===================== EXPLORER ===================== -->
+<section class="band explore">
   <header class="band-head">
-    <p class="kicker" appReveal>On en parle</p>
-    <h2 appReveal="80">Des souvenirs qui marchent longtemps</h2>
+    <p class="kicker" appReveal>Explorer</p>
+    <h2 appReveal="80">Tout ce qui vous attend</h2>
   </header>
   <div class="cards">
-    @for (a of avis; track a.auteur; let i = $index) {
-      <figure class="quote" [appReveal]="i * 80">
-        <blockquote>« {{ a.texte }} »</blockquote>
-        <figcaption>{{ a.auteur }}</figcaption>
-      </figure>
-    }
+    <a class="card explore-card btn-press" routerLink="/itineraires" appReveal>
+      <h3>Les itinéraires</h3>
+      <p>Balades à la journée, randos de 2 jours et longs séjours en itinérance.</p>
+      <span class="go">Découvrir →</span>
+    </a>
+    <a class="card explore-card btn-press" routerLink="/le-troupeau" [appReveal]="70">
+      <h3>Le troupeau</h3>
+      <p>Près de 40 ânes, chacun avec son caractère et son prénom.</p>
+      <span class="go">Faire connaissance →</span>
+    </a>
+    <a class="card explore-card btn-press" routerLink="/hebergeurs" [appReveal]="140">
+      <h3>Les hébergeurs</h3>
+      <p>Nos partenaires écoresponsables, étape après étape.</p>
+      <span class="go">Voir la liste →</span>
+    </a>
+    <a class="card explore-card btn-press" routerLink="/tarifs" [appReveal]="210">
+      <h3>Tarifs & devis</h3>
+      <p>Des tarifs clairs et un accompagnement sur mesure.</p>
+      <span class="go">Consulter →</span>
+    </a>
   </div>
 </section>
 

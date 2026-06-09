@@ -1,18 +1,20 @@
 import { Component, HostListener, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SITE, NAV } from '../core/content/site';
 
 @Component({
   selector: 'app-site-header',
   standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   template: `
     <header class="hd" [class.solid]="scrolled()">
-      <a class="brand" href="#top" (click)="close()" aria-label="Loc d'Ânes — accueil">
+      <a class="brand" routerLink="/" (click)="close()" aria-label="Loc d'Ânes — accueil">
         <img src="assets/logo.png" alt="Loc d'Ânes" width="300" height="307" />
       </a>
 
       <nav class="nav" [class.open]="open()">
-        @for (l of nav; track l.href) {
-          <a [href]="l.href" (click)="close()">{{ l.label }}</a>
+        @for (l of nav; track l.path) {
+          <a [routerLink]="l.path" routerLinkActive="active" (click)="close()">{{ l.label }}</a>
         }
         <a class="tel-m" [href]="'tel:' + site.telephoneE164" (click)="close()">{{ site.telephone }}</a>
       </nav>

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SITE, NAV } from '../core/content/site';
 
 @Component({
   selector: 'app-site-footer',
   standalone: true,
+  imports: [RouterLink],
   template: `
     <footer class="ft" id="contact">
       <div class="grid">
@@ -23,14 +25,14 @@ import { SITE, NAV } from '../core/content/site';
         <div class="col">
           <h4>Explorer</h4>
           <nav>
-            @for (l of nav; track l.href) { <a [href]="l.href">{{ l.label }}</a> }
+            @for (l of nav; track l.path) { <a [routerLink]="l.path">{{ l.label }}</a> }
           </nav>
         </div>
       </div>
 
       <div class="bottom">
         <span>© {{ year }} {{ site.nom }} — Pays Cathare</span>
-        <a href="#top">Haut de page ↑</a>
+        <a routerLink="/">Retour à l'accueil</a>
       </div>
     </footer>
   `,

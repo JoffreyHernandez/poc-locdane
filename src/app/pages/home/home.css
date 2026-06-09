@@ -128,6 +128,10 @@
 .quote blockquote { margin: 0; font-family: var(--font-display); font-size: 20px; line-height: 1.4; color: var(--color-forest); }
 .quote figcaption { margin-top: 16px; font-weight: 600; color: var(--color-clay); }
 
+/* ===== EXPLORER (accès aux pages) ===== */
+.explore-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; cursor: pointer; }
+.explore-card .go { margin-top: auto; padding-top: 14px; color: var(--color-clay); font-weight: 600; }
+
 /* ===== CTA FINAL ===== */
 .final { background: var(--color-clay); color: var(--color-paper); text-align: center; }
 .final-inner { max-width: 640px; margin: 0 auto; }
