@@ -38,6 +38,21 @@ import { SITE, DISTANCES } from '../../core/content/site';
         </div>
       </div>
     </section>
+
+    <section class="section alt map-sec">
+      <div class="container">
+        <header class="map-head"><h2 appReveal>Où nous trouver</h2>
+          <p class="lead" appReveal="60">La Ferme de Coume-Sourde, sur les hauteurs de Rennes-le-Château.</p></header>
+        <div class="map" appReveal="100">
+          <iframe title="Carte — Ferme de Coume-Sourde, Rennes-le-Château" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=2.233%2C42.909%2C2.293%2C42.949&layer=mapnik&marker=42.9287%2C2.2631"></iframe>
+        </div>
+        <p class="map-link">
+          <a href="https://www.openstreetmap.org/?mlat=42.9287&mlon=2.2631#map=14/42.9287/2.2631" target="_blank" rel="noopener">Ouvrir la carte en grand ↗</a>
+        </p>
+      </div>
+    </section>
   `,
   styles: [`
     .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(28px, 5vw, 64px); align-items: start; }
@@ -55,6 +70,14 @@ import { SITE, DISTANCES } from '../../core/content/site';
       border-radius: 12px; border: 1px solid color-mix(in srgb, var(--color-ink) 7%, transparent); }
     .dist b { color: var(--color-clay); }
     @media (max-width: 860px) { .split { grid-template-columns: 1fr; } }
+    .map-head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
+    .map-head h2 { font-size: clamp(28px, 4vw, 44px); }
+    .map-head .lead { margin-top: 10px; }
+    .map { border-radius: 22px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--color-ink) 10%, transparent);
+      box-shadow: 0 30px 60px -42px color-mix(in srgb, var(--color-ink) 70%, transparent); }
+    .map iframe { display: block; width: 100%; height: clamp(320px, 48vw, 480px); border: 0; }
+    .map-link { text-align: center; margin-top: 16px; }
+    .map-link a { color: var(--color-clay); font-weight: 600; border-bottom: 1px solid color-mix(in srgb, var(--color-clay) 40%, transparent); }
   `],
 })
 export class Contact {

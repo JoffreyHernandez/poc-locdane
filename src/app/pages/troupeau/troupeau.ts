@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
 import { SITE, TROUPEAU } from '../../core/content/site';
@@ -6,7 +7,7 @@ import { SITE, TROUPEAU } from '../../core/content/site';
 @Component({
   selector: 'app-troupeau',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, RouterLink],
   template: `
     <section class="page-top">
       <p class="kicker">À grandes oreilles</p>
@@ -38,7 +39,7 @@ import { SITE, TROUPEAU } from '../../core/content/site';
       <div class="container choose" appReveal>
         <h2>L'âne qui vous correspond</h2>
         <p class="lead">Grand ou petit, doux avec les enfants ou costaud pour les longs séjours, ami des chiens… nous choisissons avec soin votre compagnon de marche.</p>
-        <a class="btn btn-primary btn-press" [href]="'tel:' + site.telephoneE164">Préparer ma sortie</a>
+        <a class="btn btn-primary btn-press" routerLink="/contact">Préparer ma sortie</a>
       </div>
     </section>
   `,

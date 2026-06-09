@@ -17,7 +17,7 @@ import { SITE, NAV } from '../core/content/site';
 
         <div class="col">
           <h4>Nous contacter</h4>
-          <a class="big" [href]="'tel:' + site.telephoneE164">{{ site.telephone }}</a>
+          <a class="big" routerLink="/contact">Page contact →</a>
           <a [href]="'mailto:' + site.email">{{ site.email }}</a>
           <p class="lieu">{{ site.lieu }}</p>
         </div>

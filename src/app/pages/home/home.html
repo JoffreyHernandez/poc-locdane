@@ -20,7 +20,7 @@
     </p>
     <div class="cta rise" style="animation-delay: 560ms">
       <a class="btn btn-primary btn-press" routerLink="/itineraires">Découvrir les itinéraires</a>
-      <a class="btn btn-ghost btn-press" [href]="'tel:' + site.telephoneE164">Préparer ma sortie</a>
+      <a class="btn btn-ghost btn-press" routerLink="/contact">Préparer ma sortie</a>
     </div>
   </div>
 
@@ -112,7 +112,7 @@
 <section class="final">
   <div class="final-inner" appReveal>
     <h2>Prêt à partir marcher ?</h2>
-    <p>Appelez {{ site.hote }} pour préparer votre itinéraire — accueil personnalisé garanti.</p>
-    <a class="btn btn-light btn-press" [href]="'tel:' + site.telephoneE164">{{ site.telephone }}</a>
+    <p>Contactez {{ site.hote }} pour préparer votre itinéraire — accueil personnalisé garanti.</p>
+    <a class="btn btn-light btn-press" routerLink="/contact">Nous contacter</a>
   </div>
 </section>

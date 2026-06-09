@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
 import { SITE } from '../../core/content/site';
@@ -6,7 +7,7 @@ import { SITE } from '../../core/content/site';
 @Component({
   selector: 'app-qui-sommes-nous',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, RouterLink],
   template: `
     <section class="page-top">
       <p class="kicker">Notre histoire</p>
@@ -34,7 +35,7 @@ import { SITE } from '../../core/content/site';
       <div class="container cta-inner" appReveal>
         <h2>Venez nous rencontrer</h2>
         <p class="lead">Tours de ferme sur demande, à la demi-journée ou journée, avec ou sans repas-dégustation.</p>
-        <a class="btn btn-primary btn-press" [href]="'tel:' + site.telephoneE164">Appeler {{ site.telephone }}</a>
+        <a class="btn btn-primary btn-press" routerLink="/contact">Nous contacter</a>
       </div>
     </section>
   `,

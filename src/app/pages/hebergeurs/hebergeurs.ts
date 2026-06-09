@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
 import { SITE, HEBERGEURS } from '../../core/content/site';
@@ -6,7 +7,7 @@ import { SITE, HEBERGEURS } from '../../core/content/site';
 @Component({
   selector: 'app-hebergeurs',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, RouterLink],
   template: `
     <section class="page-top">
       <p class="kicker">Dormir en chemin</p>
@@ -35,7 +36,7 @@ import { SITE, HEBERGEURS } from '../../core/content/site';
     <section class="section alt">
       <div class="container note" appReveal>
         <p class="lead">Avant ou après votre séjour, des hébergeurs vous accueillent aussi à proximité de la ferme. Nous vous orientons vers ceux qui correspondent à votre itinéraire.</p>
-        <a class="btn btn-primary btn-press" [href]="'tel:' + site.telephoneE164">Demander conseil</a>
+        <a class="btn btn-primary btn-press" routerLink="/contact">Demander conseil</a>
       </div>
     </section>
   `,

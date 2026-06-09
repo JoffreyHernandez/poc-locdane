@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { RevealDirective } from '../../shared/reveal.directive';
 import { SeoService } from '../../core/seo/seo.service';
 import { SITE, TARIFS, SERVICES } from '../../core/content/site';
@@ -6,7 +7,7 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
 @Component({
   selector: 'app-tarifs',
   standalone: true,
-  imports: [RevealDirective],
+  imports: [RevealDirective, RouterLink],
   template: `
     <section class="page-top">
       <p class="kicker">Sur réservation</p>
@@ -23,8 +24,7 @@ import { SITE, TARIFS, SERVICES } from '../../core/content/site';
         </div>
         <p class="pay" appReveal="80">Paiement par virement ou en espèces — nous n'acceptons pas les chèques.</p>
         <div class="devis" appReveal="120">
-          <a class="btn btn-primary btn-press" [href]="'tel:' + site.telephoneE164">Demander un devis</a>
-          <a class="btn btn-ghost btn-press" [href]="'mailto:' + site.email">{{ site.email }}</a>
+          <a class="btn btn-primary btn-press" routerLink="/contact">Demander un devis</a>
         </div>
       </div>
     </section>
